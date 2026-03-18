@@ -1,104 +1,95 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Skystore</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-</head>
-<body>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
-    <nav class="ms-5">
-        <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
-        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
-    </nav>
+{% extends 'base.html' %}
+
+{% block title %}Контакты | Pulse Store{% endblock %}
+
+{% block content %}
+<!-- Заголовок страницы - подняли выше и сделали компактнее -->
+<div class="py-4 text-center container">
+    <h1 class="display-5 fw-bold">Свяжитесь с нами</h1>
+    <p class="lead text-body-secondary col-lg-8 mx-auto">
+        Есть вопросы? Мы всегда на связи. Заполните форму или напишите нам напрямую.
+    </p>
 </div>
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Контакты</h1>
-</div>
+<div class="container mb-5">
+    <div class="row g-5 justify-content-center">
 
-<div class="container">
-    <div class="row text-start">
-        <div class="col-lg-9 col-md-6 col-sm-12">
-            <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <tr>
-                            <td class="w-25">Страна</td>
-                            <td>USA</td>
-                        </tr>
-                        <tr>
-                            <td class="w-25">ИНН</td>
-                            <td>91-1144442</td>
-                        </tr>
-                        <tr>
-                            <td class="w-25">Адрес</td>
-                            <td>Redmond,WA,98052-6399</td>
-                        </tr>
-                    </table>
+        <!-- Левая колонка: Контакты (только самое важное) -->
+        <div class="col-md-6 col-lg-5">
+            <h3 class="fw-bold mb-4 text-start">Наши контакты</h3>
+            <div class="card shadow-sm border-0 bg-body-tertiary h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="flex-shrink-0 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="fw-bold mb-1">Адрес офиса</h6>
+                            <p class="text-muted mb-0">Москва, ул. Ленина, д.2</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="flex-shrink-0 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="fw-bold mb-1">Email</h6>
+                            <p class="text-muted mb-0"><a href="mailto:support@pulse.store" class="text-decoration-none">support@pulse.store</a></p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start">
+                        <div class="flex-shrink-0 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h6 class="fw-bold mb-1">Телефон</h6>
+                            <p class="text-muted mb-0"><a href="tel:+79999999999" class="text-decoration-none">+7 (999) 999-99-99</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Свяжитесь с нами</h4>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="" class="form-floating">
+
+        <!-- Правая колонка: Форма -->
+        <div class="col-md-6 col-lg-5">
+            <h3 class="fw-bold mb-4 text-start">Написать сообщение</h3>
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body p-4">
+                    <form method="post" action="" class="needs-validation" novalidate>
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="name">Имя</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" name="name" class="form-control bg-body-tertiary border-0" id="name" placeholder="Ваше имя" required>
+                            <label for="name">Ваше имя</label>
                         </div>
-                        <div class="mb-3">
+
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="phone" class="form-control bg-body-tertiary border-0" id="phone" placeholder="+1 (555) 000-00-00" required>
                             <label for="phone">Телефон</label>
-                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Контактный телефон" required>
                         </div>
-                        <div class="mb-3">
+
+                        <div class="form-floating mb-4">
+                            <textarea name="message" class="form-control bg-body-tertiary border-0" placeholder="Ваш вопрос" id="message" style="height: 120px" required></textarea>
                             <label for="message">Сообщение</label>
-                            <textarea type="text" name="message" class="form-control" id="message" placeholder="Напишите, что вас интересует" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Отправить</button>
+
+                        <button type="submit" class="w-100 btn btn-lg btn-dark">Отправить</button>
+
+                        <small class="text-muted d-block mt-3 text-center" style="font-size: 0.8rem;">
+                            Ответим в течение 15 минут в рабочее время.
+                        </small>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
-            <div class="col-12 col-md">
-                SkyStore
-                <small class="d-block mb-3 text-muted">&copy; 2023</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Категории</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Рассылки</a></li>
-                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
-                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
-                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
-                    <li><a class="text-muted" href="#">Микросервисы</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Дополнительно</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Мы пишем</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>О нас</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
 </div>
-<script src="/static/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}
