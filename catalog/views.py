@@ -1,27 +1,53 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from .models import Product
 
 
-def contacts(request):
-    """Контроллер для страницы контактов с post-запросом"""
-    if request.method == "POST":
-        name = request.POST.get("name")
-        message = request.POST.get("message")
-        return HttpResponse(
-            f'Спасибо, {name}! Сообщение получено, вот его текст: "{message}".'
-        )
-    return render(request, "contacts.html")
+class ContactsView(ListView):
+    model = Product
+    template_name = "catalog/contacts.html"
 
 
-def product_list(request):
-    products = Product.objects.all()
-    context = {"products": products}
-    return render(request, "products_list.html", context)
+class ProductListView(ListView):
+    model = Product
 
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {"product": product}
-    return render(request, "product_detail.html", context)
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_object(self, queryset = None):
+        self.object = super().get_object(queryset)
+        self.object.views_counter += 1
+        self.object.save()
+        return self.object
+
+
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields  = ['name', 'image', 'category', 'purchase_price']
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields  = ['name', 'image', 'category', 'purchase_price']
+    success_url = reverse_lazy('catalog:product_list')
+
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:product_detail', kwargs={'pk': self.object.pk})
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')
+

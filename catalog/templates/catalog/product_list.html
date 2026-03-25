@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 
 {% block title %}Каталог | Pulse Store{% endblock %}
@@ -7,11 +7,10 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        {% for product in products %}
+        {% for product in object_list %}
         <div class="col">
           <div class="card shadow-sm h-100">
             <div style="height: 250px; overflow: hidden; background-color: #f8f9fa;">
-                <!-- В alt имя товара можно оставить коротким, но это не влияет на вид -->
                 <img src="{{ product.image|media_filter }}"
                      class="card-img-top"
                      alt="{{ product.name }}"
@@ -26,6 +25,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group w-100">
                     <a class="btn btn-primary w-100" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+                    <a class="btn btn-primary w-100" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                    <a class="btn btn-danger w-100" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                   </div>
                 </div>
               </div>
