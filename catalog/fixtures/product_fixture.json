@@ -1,0 +1,28 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Смарт-часы",
+        "description": "",
+        "image": "",
+        "category": 1,
+        "purchase_price": "7000.00",
+        "created_at": null,
+        "updated_at": null
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Куртка",
+        "description": "",
+        "image": "",
+        "category": 2,
+        "purchase_price": "14400.00",
+        "created_at": null,
+        "updated_at": null
+    }
+}
+]
