@@ -7,10 +7,34 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "django (>=6.0.2,<7.0.0)"
+    "django (>=6.0.2,<7.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)",
+    "mypy (>=1.19.1,<2.0.0)",
+    "black (>=26.1.0,<27.0.0)",
+    "pytest (>=9.0.2,<10.0.0)",
+    "psycopg2-binary (>=2.9.11,<3.0.0)",
+    "dotenv-python (>=0.0.1,<0.0.2)",
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "psycopg2 (>=2.9.11,<3.0.0)",
+    "pillow (>=12.1.1,<13.0.0)",
+    "ipython (>=9.11.0,<10.0.0)",
+    "ruff (>=0.15.6,<0.16.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+exclude = [
+    "migrations",
+    ".venv",
+    "static",
+    "media",
+    "venv"
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
