@@ -7,7 +7,8 @@ from django.views.generic import (
     UpdateView,
 )
 
-from blog.models import Blog
+from .forms import BlogFormCreate
+from .models import Blog
 
 
 class BlogListView(ListView):
@@ -28,13 +29,13 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ['title', 'content', 'image', 'publication_status', 'created_at']
+    form_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ['title', 'content', 'image', 'publication_status', 'created_at']
+    from_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
