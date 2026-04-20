@@ -124,24 +124,43 @@ files = [
 
 [[package]]
 name = "django"
-version = "6.0.2"
+version = "5.2.13"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 optional = false
-python-versions = ">=3.12"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "django-6.0.2-py3-none-any.whl", hash = "sha256:610dd3b13d15ec3f1e1d257caedd751db8033c5ad8ea0e2d1219a8acf446ecc6"},
-    {file = "django-6.0.2.tar.gz", hash = "sha256:3046a53b0e40d4b676c3b774c73411d7184ae2745fe8ce5e45c0f33d3ddb71a7"},
+    {file = "django-5.2.13-py3-none-any.whl", hash = "sha256:5788fce61da23788a8ce6f02583765ab060d396720924789f97fa42119d37f7a"},
+    {file = "django-5.2.13.tar.gz", hash = "sha256:a31589db5188d074c63f0945c3888fad104627dfcc236fb2b97f71f89da33bc4"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.9.1"
-sqlparse = ">=0.5.0"
+asgiref = ">=3.8.1"
+sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
 [package.extras]
-argon2 = ["argon2-cffi (>=23.1.0)"]
-bcrypt = ["bcrypt (>=4.1.1)"]
+argon2 = ["argon2-cffi (>=19.1.0)"]
+bcrypt = ["bcrypt"]
+
+[[package]]
+name = "django-phonenumber-field"
+version = "8.4.0"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "django_phonenumber_field-8.4.0-py3-none-any.whl", hash = "sha256:7a1cb3a6456edb54d879f11ffa0acb227ded08c93b587035d0f28093f0e46511"},
+    {file = "django_phonenumber_field-8.4.0.tar.gz", hash = "sha256:2b83e843dac35eec6a69880a166487235b737a71a1e38c9a52e5ad67d6996083"},
+]
+
+[package.dependencies]
+Django = ">=4.2"
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
 
 [[package]]
 name = "dotenv-python"
@@ -1056,4 +1075,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14"
-content-hash = "bd600e6373f717aed79a9892a965c982b8a1ab66759b107bb00c7f7e10a7c808"
+content-hash = "51e88fbaea4d948ce3388d55235aab42688d2dd78354c4c94218b103f8bb40ce"

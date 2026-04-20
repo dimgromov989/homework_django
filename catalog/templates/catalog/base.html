@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pulse</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
 
   </head>
   <body>
@@ -72,9 +73,13 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Pulse</h1>
         <p class="lead text-body-secondary">Твой импульс к будущему</p>
+                {% if user.is_authenticated %}
         {% block action_button %}
+
         <a class="btn btn-primary" href="{% url 'catalog:product_create'%}" role="button">Добавить товар</a>
+
         {% endblock %}
+        {% endif %}
       </div>
     </div>
   </section>

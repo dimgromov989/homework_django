@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -17,7 +18,7 @@ class BlogListView(ListView):
     def get_queryset(self):
         return Blog.objects.filter(publication_status=True)
 
-class BlogDetailView(DetailView):
+class BlogDetailView(DetailView, LoginRequiredMixin):
     model = Blog
     
     def get_object(self, queryset = None):
@@ -27,21 +28,21 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(CreateView, LoginRequiredMixin):
     model = Blog
     form_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(UpdateView, LoginRequiredMixin):
     model = Blog
-    from_class = BlogFormCreate
+    form_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
         return reverse_lazy('blog:blog_detail', kwargs={'pk': self.object.pk})
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(DeleteView, LoginRequiredMixin):
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
 

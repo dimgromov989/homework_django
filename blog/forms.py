@@ -1,7 +1,27 @@
 from django import forms
 from .models import Blog
 
-class BlogFormCreate(forms.ModelForm):
+
+class StyleFormMixin:
+    """Bootstrap-классы для полей формы и отключение help_text по умолчанию."""
+
+    input_css_class = "form-control"
+    checkbox_css_class = "form-check-input"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.help_text = ""
+            widget = field.widget
+            if isinstance(widget, forms.CheckboxInput):
+                css = self.checkbox_css_class
+            else:
+                css = self.input_css_class
+            classes = widget.attrs.get("class", "")
+            widget.attrs["class"] = (f"{classes} {css}").strip() if classes else css
+
+
+class BlogFormCreate(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model  = Blog
@@ -11,25 +31,14 @@ class BlogFormCreate(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogFormCreate, self).__init__(*args, **kwargs)
 
-
-        for field_name in self.fields:
-            self.fields[field_name].help_text = ''
-
-
         self.fields['title'].widget.attrs.update({
-            'class': 'form-control',
             'placeholder': 'Выберите название',
         })
         self.fields['content'].widget.attrs.update({
-            'class': 'form-control',
             'placeholder': 'Выберите контент',
         })
         self.fields['image'].widget.attrs.update({
-            'class': 'form-control',
             'placeholder': 'Выберите изображение',
-        })
-        self.fields['publication_status'].widget.attrs.update({
-            'class': 'form-check-input',
         })
 
 
