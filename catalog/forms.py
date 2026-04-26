@@ -38,7 +38,7 @@ class ProductCreateForm(forms.ModelForm):
             if word in name.lower():
                 raise forms.ValidationError("Название не может содержать запрещенные слова")
         return name
-
+        
 
     def clean_image(self):
         image = self.cleaned_data.get('image')

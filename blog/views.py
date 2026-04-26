@@ -18,7 +18,7 @@ class BlogListView(ListView):
     def get_queryset(self):
         return Blog.objects.filter(publication_status=True)
 
-class BlogDetailView(DetailView, LoginRequiredMixin):
+class BlogDetailView(LoginRequiredMixin, DetailView):
     model = Blog
     
     def get_object(self, queryset = None):
@@ -28,13 +28,13 @@ class BlogDetailView(DetailView, LoginRequiredMixin):
         return self.object
 
 
-class BlogCreateView(CreateView, LoginRequiredMixin):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     form_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
 
 
-class BlogUpdateView(UpdateView, LoginRequiredMixin):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
     form_class = BlogFormCreate
     success_url = reverse_lazy('blog:blog_list')
@@ -42,7 +42,7 @@ class BlogUpdateView(UpdateView, LoginRequiredMixin):
     def get_success_url(self):
         return reverse_lazy('blog:blog_detail', kwargs={'pk': self.object.pk})
 
-class BlogDeleteView(DeleteView, LoginRequiredMixin):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
 
