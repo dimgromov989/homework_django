@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -22,6 +23,14 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="products",
+        verbose_name="Владелец",
+        blank=True,
+        null=True,
+    )
     name = models.CharField(
         max_length=255, verbose_name="Название", help_text="Название товара"
     )
@@ -54,11 +63,15 @@ class Product(models.Model):
     )
     created_at = models.DateField(blank=True, null=True, verbose_name="Дата создания")
     updated_at = models.DateField(blank=True, null=True, verbose_name="Дата обновления")
+    publication_status = models.BooleanField(verbose_name="Статус публикации", help_text="Статус публикации продукта", default=False)
 
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
         ordering = ["category"]
+        permissions = [
+            ("can_unpublish_product", "Can unpublish product"),
+        ]
 
     def __str__(self):
         return self.name

@@ -6,7 +6,7 @@ from .models import Product
 class ProductCreateForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'image', 'category', 'purchase_price']
+        fields = ['name', 'image', 'category', 'purchase_price', 'publication_status']
 
     def __init__(self, *args, **kwargs):
         super(ProductCreateForm, self).__init__(*args, **kwargs)
@@ -51,3 +51,17 @@ class ProductCreateForm(forms.ModelForm):
         if purchase_price <= 0:
             raise forms.ValidationError("Цена не может быть отрицательной или равна нулю")
         return purchase_price
+
+
+
+class ProductModeratorForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['publication_status']
+
+    def clean_publication_status(self):
+        publication_status = self.cleaned_data.get("publication_status")
+        # Модератор может только отменять публикацию, а не публиковать.
+        if publication_status is True:
+            raise forms.ValidationError("У вас нет прав публиковать продукт.")
+        return publication_status

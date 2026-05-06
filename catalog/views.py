@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -8,7 +9,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import ProductCreateForm
+from .forms import ProductCreateForm, ProductModeratorForm
 from .models import Product
 
 
@@ -38,6 +39,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductCreateForm
     success_url = reverse_lazy('catalog:product_list')
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.owner = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
@@ -45,11 +52,23 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-    def get_success_url(self):
-        return reverse_lazy('catalog:product_detail', kwargs={'pk': self.object.pk})
+    def get_form_class(self):
+        user = self.request.user
+        self.object = self.get_object()
+        if user == self.object.owner:
+            return ProductCreateForm
+        if user.has_perm("catalog.can_unpublish_product"):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user == self.object.owner or request.user.has_perm("catalog.delete_product"):
+            return super().dispatch(request, *args, **kwargs)
+        raise PermissionDenied
 
