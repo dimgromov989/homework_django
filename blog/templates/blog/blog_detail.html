@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+
+{% block title %}{{ object.title }} | Pulse Store{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card shadow-sm">
+            {% if object.image %}
+            <img src="{{ object.image|media_filter }}"
+                 class="card-img-top"
+                 alt="{{ object.title }}"
+                 style="max-height: 400px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+              <h2 class="card-title mb-3">{{ object.title }}</h2>
+              <p class="text-muted mb-3">
+                {% if object.created_at %}{{ object.created_at|date:"d.m.Y" }}{% endif %} | Просмотров: {{ object.views_counter }}
+              </p>
+              <div class="card-text mb-4">{{ object.content }}</div>
+              <a class="btn btn-primary" href="{% url 'blog:blog_list' %}">Назад</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
