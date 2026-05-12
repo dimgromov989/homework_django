@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -12,7 +12,7 @@ from django.views.generic import (
 
 from .forms import ProductCreateForm, ProductModeratorForm
 from .models import Category, Product
-from .services import ProductService
+from .services import ProductService, get_list_products_cache
 
 
 class ContactsView(ListView):
@@ -23,20 +23,27 @@ class ContactsView(ListView):
 class ProductListView(ListView):
     model = Product
 
+    def get_queryset(self):
+        return get_list_products_cache()
+
+
+
 
 class ProductListProductsCategoryView(ListView):
     model = Product
     context_object_name = 'products'
+    paginate_by = 12
 
     def get_queryset(self):
         category_id = self.kwargs.get("category_id")
-        return ProductService.product_in_category(category_id)
+        try:
+            return ProductService.get_products_by_category(category_id)
+        except ObjectDoesNotExist:
+            raise Http404("Категория не найдена")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category_id = self.kwargs.get("category_id")
-        category = get_object_or_404(Category, id=category_id)
-        context["category"] = category
+        context["category"] = Category.objects.get(id=self.kwargs.get("category_id"))
         return context
 
 
