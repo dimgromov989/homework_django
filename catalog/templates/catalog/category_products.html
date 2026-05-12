@@ -1,0 +1,56 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Товары категории: {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">Категория: {{ category.name }}</h1>
+
+    {% if products %}
+        <div class="row g-4">
+            {% for product in products %}
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100">
+                        <!-- Если у продукта есть изображение -->
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text fw-bold">{{ product.price }} ₽</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">← Назад</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд →</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info">
+            В этой категории пока нет доступных товаров.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

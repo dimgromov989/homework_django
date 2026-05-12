@@ -1,0 +1,25 @@
+{% extends 'catalog/base.html' %}
+{% block action_button %}{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="card-body form-content">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="card-footer bg-light text-center py-3">
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="submit" class="btn btn-primary px-4">
+                                Войти
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
